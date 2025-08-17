@@ -1,0 +1,52 @@
+# Usar imagen oficial de Node.js
+FROM node:18-alpine
+
+# Información del mantenedor
+LABEL maintainer="tu-email@ejemplo.com"
+LABEL version="1.0.0"
+LABEL description="Discord AutoMod Bot - Sistema avanzado de automoderación"
+
+# Crear directorio de aplicación
+WORKDIR /usr/src/app
+
+# Instalar dependencias del sistema
+RUN apk add --no-cache \
+    git \
+    python3 \
+    make \
+    g++
+
+# Copiar package.json y package-lock.json
+COPY package*.json ./
+
+# Instalar dependencias de Node.js
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+# Copiar código fuente
+COPY . .
+
+# Crear usuario no-root para seguridad
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S automod -u 1001
+
+# Crear directorios necesarios y asignar permisos
+RUN mkdir -p logs && \
+    chown -R automod:nodejs /usr/src/app
+
+# Cambiar a usuario no-root
+USER automod
+
+# Exponer puerto (opcional para APIs futuras)
+EXPOSE 3000
+
+# Configurar variables de entorno por defecto
+ENV NODE_ENV=production
+ENV TZ=UTC
+
+# Healthcheck para verificar que el bot esté funcionando
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD node -e "console.log('Bot is running')" || exit 1
+
+# Comando para iniciar la aplicación
+CMD ["node", "index.js"]

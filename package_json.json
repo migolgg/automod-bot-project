@@ -1,0 +1,39 @@
+{
+  "name": "discord-automod-bot",
+  "version": "1.0.0",
+  "description": "Bot avanzado de automoderación para Discord con sistema de escalamiento",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "automod",
+    "moderation",
+    "escalation",
+    "spam",
+    "filter"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tu-usuario/discord-automod-bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tu-usuario/discord-automod-bot/issues"
+  },
+  "homepage": "https://github.com/tu-usuario/discord-automod-bot#readme"
+}
